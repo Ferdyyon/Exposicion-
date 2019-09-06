@@ -1,0 +1,68 @@
+import controlP5.*; // libreria para compartir datos de arduino
+import processing.serial.*;// activa el puerto serial
+Serial port;// puerto serial
+
+
+ControlP5 cp5;
+PFont font;
+
+void setup() {
+  size (300, 500);
+  printArray(Serial.list()); // escribir en el puerto serial
+  port = new Serial(this, "COM4", 9600);// activa el puerto al que este conectado el arduino
+
+  cp5 = new ControlP5(this);
+  font= createFont("calibri ", 20); // fuente y tamaño de los titulos
+
+  // Crea el boton de activacion del color rojo 
+  cp5.addButton("Green") // Texto o nombre del boton
+    .setPosition(100, 50) // Asignacion de coordenadas del boton
+    .setSize(100, 80) // Tamaño del Boton
+    .setFont(font); // Fuente del Texto
+  ;
+
+  // Crea el boton de activacion del color amarillo
+  cp5.addButton("yellow") // Texto o nombre del boton
+    .setPosition(100, 150) // Asignacion de coordenadas del boton
+    .setSize(100, 80) // Tamaño del Boton
+    .setFont(font); // Fuente del Texto
+  ;
+
+  // Crea el boton de activacion del color azul
+  /* cp5.addButton("Red") // Texto o nombre del boton
+   .setPosition(100, 250) // Asgnacion de coordenadas del boton
+   .setSize(100,80) // Tamaño del  Boton
+   .setFont(font);// Fuente del Texto
+   ;
+   **/  // Crea el boton de activacion de apagado de todos los colores
+  cp5.addButton("off") // Texto o nombre del boton
+    .setPosition(100, 350) // Asignacion de coordenadas del boton
+    .setSize(100, 80) // Tamaño del Boton
+    .setFont(font); // Fuente del Texto
+  ;
+}
+
+void draw() {
+  background(0);
+  fill(255);
+  textFont(font); // Fuente del texto
+  text(" LED CONTROL", 75, 30);
+}
+
+// Declaracion de las funciones segun codigo de arduino 
+
+void red() { // Boton LED Rojo
+  port.write('r');
+}
+
+void blue() {  // Boton LED azul
+  port.write('b');
+}
+
+void yellow() {  // Boton LED amarillo
+  port.write('y');
+}
+
+void off () {   // Boton apagado de LED
+  port.write('f');
+}
