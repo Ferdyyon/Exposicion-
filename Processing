@@ -2,7 +2,6 @@ import controlP5.*; // libreria para compartir datos de arduino
 import processing.serial.*;// activa el puerto serial
 Serial port;// puerto serial
 
-
 ControlP5 cp5;
 PFont font;
 
