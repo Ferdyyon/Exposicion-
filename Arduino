@@ -1,29 +1,31 @@
 void setup() {
-  // Declaracion del puerto 10,11,12 como entradas
- pinMode(10, OUTPUT);
- pinMode(11, OUTPUT);
- pinMode(12, OUTPUT);
- Serial.begin(9600); // Activacion del puerti serial
-}
 
-void loop() {
-  if(Serial.available()){ // Si el puerto serial es activo
-    char val = Serial.read(); // Declaracion de la letra a usar "val"
-    if(val == 'r'){ //RED // si "val" es igual a "r" 
-      digitalWrite(10, HIGH);// entonces el puerto 10 es activo (1)
-    }
-    if(val == 'y'){ //YELLOW
-      digitalWrite(11, HIGH);
-    }
-    if(val == 'b'){ //BLUE
-      digitalWrite(12, HIGH);
-    }
-    if(val == 'f'){ //OFF ALL    // si "val" es igual a "f" 
-      digitalWrite(10, LOW); // entonces todos los pines declarados son desactivados (0)
-      digitalWrite(11, LOW); // entonces todos los pines declarados son desactivados (0)
-      digitalWrite(12, LOW); // entonces todos los pines declarados son desactivados (0)
-    }
-    
+  pinMode(10, OUTPUT);   //set pin as output , blue led
+  pinMode(11, OUTPUT);   //set pin as output , red led
+  pinMode(12, OUTPUT);   //set pin as output , yellow led
+
+  Serial.begin(9600);    //start serial communication @9600 bps
   }
 
-}
+void loop(){
+  
+  if(Serial.available()){  //id data is available to read
+
+    char val = Serial.read();
+
+    if(val == 'r'){       //if r received
+      digitalWrite(10, HIGH); //turn on red led
+      }
+    if(val == 'b'){       //if b received
+      digitalWrite(11, HIGH); //turn on blue led
+      }
+    if(val == 'y'){       //if y received
+      digitalWrite(12, HIGH); //turn on yellow led
+      }
+    if(val == 'f'){       //if f received
+      digitalWrite(11, LOW); //turn off all led
+      digitalWrite(12, LOW);
+      digitalWrite(10, LOW);
+      }      
+    }
+  }
